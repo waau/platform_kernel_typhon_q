@@ -1240,7 +1240,11 @@ static int create_device(struct zram *zram, int device_id)
 	zram->disk->private_data = zram;
 	snprintf(zram->disk->disk_name, 16, "zram%d", device_id);
 
+<<<<<<< HEAD
 	__set_bit(QUEUE_FLAG_FAST, &queue->queue_flags);
+=======
+	__set_bit(QUEUE_FLAG_FAST, &zram->queue->queue_flags);
+>>>>>>> e5ce54a9cbc6... mm: swap: don't delay swap free for fast swap devices
 	/* Actual capacity set using syfs (/sys/block/zram<id>/disksize */
 	set_capacity(zram->disk, 0);
 	/* zram devices sort of resembles non-rotational disks */
