@@ -2206,7 +2206,6 @@ int sps_register_bam_device(const struct sps_bam_props *bam_props,
 	if (!bam->ipc_log2)
 		SPS_ERR(sps, "%s : unable to create IPC Logging 2 for bam %pa",
 					__func__, &bam->props.phys_addr);
-
 	snprintf(bam_name, sizeof(bam_name), "sps_bam_%pa_3",
 					&bam->props.phys_addr);
 	bam->ipc_log3 = ipc_log_context_create(SPS_IPC_LOGPAGES,

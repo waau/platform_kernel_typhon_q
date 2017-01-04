@@ -6326,6 +6326,7 @@ int __init pcie_init(void)
 	for (i = 0; i < MAX_RC_NUM; i++) {
 #ifdef CONFIG_IPC_LOGGING
 		snprintf(rc_name, MAX_RC_NAME_LEN, "pcie%d-short", i);
+#ifdef CONFIG_IPC_LOGGING
 		msm_pcie_dev[i].ipc_log =
 			ipc_log_context_create(PCIE_LOG_PAGES, rc_name, 0);
 		if (msm_pcie_dev[i].ipc_log == NULL)
