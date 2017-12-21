@@ -434,6 +434,7 @@ config MSM_SMD
 config MSM_SMD_DEBUG
 	depends on MSM_SMD
 	bool "MSM SMD debug support"
+	default n
 	help
 	  Support for debugging SMD and SMSM communication between apps and
 	  other processors in the SoC. Debug support primarily consists of
