@@ -3,7 +3,7 @@
 menuconfig SND_SPARC
 	bool "Sparc sound devices"
 	depends on SPARC
-	default y
+	default n
 	help
 	  Support for sound devices specific to Sun SPARC architectures.
 

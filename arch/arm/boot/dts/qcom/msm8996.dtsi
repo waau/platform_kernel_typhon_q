@@ -1807,12 +1807,6 @@
 		};
 	};
 
-	jtag_fuse: jtagfuse@7602c {
-		compatible = "qcom,jtag-fuse-v3";
-		reg = <0x7602c 0xc>;
-		reg-names = "fuse-base";
-	};
-
 	rpm_bus: qcom,rpm-smd {
 		 compatible = "qcom,rpm-glink";
 		 qcom,glink-edge = "rpm";

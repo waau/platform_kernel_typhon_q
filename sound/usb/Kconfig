@@ -3,7 +3,7 @@
 menuconfig SND_USB
 	bool "USB sound devices"
 	depends on USB
-	default y
+	default n
 	help
 	  Support for sound devices connected via the USB bus.
 

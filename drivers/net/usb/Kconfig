@@ -145,7 +145,7 @@ config USB_NET_AX8817X
 	depends on USB_USBNET
 	select CRC32
 	select PHYLIB
-	default y
+	default n
 	help
 	  This option adds support for ASIX AX88xxx based USB 2.0
 	  10/100 Ethernet adapters.
@@ -173,7 +173,7 @@ config USB_NET_AX88179_178A
 	depends on USB_USBNET
 	select CRC32
 	select PHYLIB
-	default y
+	default n
 	help
 	  This option adds support for ASIX AX88179 based USB 3.0/2.0
 	  to Gigabit Ethernet adapters.
@@ -189,7 +189,7 @@ config USB_NET_AX88179_178A
 config USB_NET_CDCETHER
 	tristate "CDC Ethernet support (smart devices such as cable modems)"
 	depends on USB_USBNET
-	default y
+	default n
 	help
 	  This option supports devices conforming to the Communication Device
 	  Class (CDC) Ethernet Control Model, a specification that's easy to
@@ -414,7 +414,7 @@ config USB_AN2720
 config USB_BELKIN
 	boolean "eTEK based host-to-host cables (Advance, Belkin, ...)"
 	depends on USB_NET_CDC_SUBSET
-	default y
+	default n
 	help
 	  Choose this option if you're using a host-to-host cable
 	  based on this design:  two NetChip 2890 chips and an Atmel
@@ -456,7 +456,7 @@ config USB_NET_ZAURUS
 	depends on USB_USBNET
 	select USB_NET_CDCETHER
 	select CRC32
-	default y
+	default n
 	help
 	  Choose this option to support the usb networking links used by
 	  Zaurus models like the SL-5000D, SL-5500, SL-5600, A-300, B-500.

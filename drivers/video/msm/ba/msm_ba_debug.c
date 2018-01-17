@@ -15,8 +15,8 @@
 
 #define MAX_DBG_BUF_SIZE 1008
 
-int msm_ba_debug = BA_ERR | BA_WARN;
-int msm_ba_debug_out = BA_OUT_PRINTK;
+int msm_ba_debug = 0;
+int msm_ba_debug_out = 0;
 
 struct debug_buffer {
 	char ptr[MAX_DBG_BUF_SIZE];

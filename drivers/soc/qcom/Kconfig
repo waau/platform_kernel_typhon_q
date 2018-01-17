@@ -142,6 +142,7 @@ config MSM_DEBUG_LAR_UNLOCK
 
 config MSM_JTAG
 	bool "Debug and ETM trace support across power collapse"
+	default n
 	help
 	  Enables support for debugging (specifically breakpoints) and ETM
 	  processor tracing across power collapse both for JTag and OS hosted
@@ -153,6 +154,7 @@ config MSM_JTAG
 
 config MSM_JTAG_MM
 	bool "Debug and ETM trace support across power collapse using memory mapped access"
+	default n
 	help
 	  Enables support for debugging (specifically breakpoints) and ETM
 	  processor tracing across power collapse both for JTag and OS hosted

@@ -27,7 +27,7 @@
 #include <soc/qcom/glink.h>
 #include <soc/qcom/subsystem_restart.h>
 
-static int ipc_router_glink_xprt_debug_mask;
+static int ipc_router_glink_xprt_debug_mask = 0;
 module_param_named(debug_mask, ipc_router_glink_xprt_debug_mask,
 		   int, S_IRUGO | S_IWUSR | S_IWGRP);
 

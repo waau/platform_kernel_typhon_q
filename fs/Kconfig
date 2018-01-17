@@ -218,7 +218,7 @@ source "fs/exofs/Kconfig.ore"
 
 menuconfig NETWORK_FILESYSTEMS
 	bool "Network File Systems"
-	default y
+	default n
 	depends on NET
 	---help---
 	  Say Y here to get to see options for network filesystems and

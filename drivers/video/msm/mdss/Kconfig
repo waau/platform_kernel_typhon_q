@@ -122,7 +122,7 @@ config LGE_LCD_TUNING
 config LGE_DISPLAY_DYNAMIC_LOG
 	depends on LGE_LCD_TUNING
 	bool "Dynamic Log"
-	default y
+	default n
 	---help---
 	If you say Y here, developers can enable/disable display logs through adb
 	by accessing /sys/class/graphics/fb0/debug_level

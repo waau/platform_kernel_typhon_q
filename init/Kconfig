@@ -548,7 +548,7 @@ config RCU_USER_QS
 config CONTEXT_TRACKING_FORCE
 	bool "Force context tracking"
 	depends on CONTEXT_TRACKING
-	default y if !NO_HZ_FULL
+	default n
 	help
 	  The major pre-requirement for full dynticks to work is to
 	  support the context tracking subsystem. But there are also
@@ -1691,7 +1691,7 @@ config VM_EVENT_COUNTERS
 	  if VM event counters are disabled.
 
 config SLUB_DEBUG
-	default y
+	default n
 	bool "Enable SLUB debugging support" if EXPERT
 	depends on SLUB && SYSFS
 	help

@@ -31,12 +31,6 @@
 			reg = <0 0xc0000000 0 0x100000>;
 		};
 
-		crash_fb_mem: crash_fb_mem@c0100000 {
-			linux,contiguous-region;
-			reg = <0 0xc0100000 0 0xc00000>;
-			label = "crash_fb_mem";
-		};
-
 		cont_splash_mem: cont_splash_mem@83401000 {
 			status = "disabled";
 		};
@@ -58,12 +52,6 @@
 		console-size = <0x40000>;
 		ftrace-size = <0x40000>;
 		dump-oops = <1>;
-	};
-
-	crash_fb {
-		compatible = "crash_fb";
-		mem-addr = <0xc0100000>;
-		mem-size = <0xc00000>;
 	};
 
 	bootlog {

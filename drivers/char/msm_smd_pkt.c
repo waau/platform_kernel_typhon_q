@@ -103,7 +103,7 @@ static int num_smd_pkt_ports;
 #define SMD_PKT_IPC_LOG_PAGE_CNT 2
 static void *smd_pkt_ilctxt;
 
-static int msm_smd_pkt_debug_mask;
+static int msm_smd_pkt_debug_mask = 0;
 module_param_named(debug_mask, msm_smd_pkt_debug_mask,
 		int, S_IRUGO | S_IWUSR | S_IWGRP);
 
