@@ -315,7 +315,7 @@ config XEN_NETDEV_FRONTEND
 	tristate "Xen network device frontend driver"
 	depends on XEN
 	select XEN_XENBUS_FRONTEND
-	default y
+	default n
 	help
 	  This driver provides support for Xen paravirtual network
 	  devices exported by a Xen network driver domain (often

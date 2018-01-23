@@ -124,7 +124,7 @@ config USB_ETH_RNDIS
 	depends on USB_ETH
 	select USB_LIBCOMPOSITE
 	select USB_F_RNDIS
-	default y
+	default n
 	help
 	   Microsoft Windows XP bundles the "Remote NDIS" (RNDIS) protocol,
 	   and Microsoft provides redistributable binary RNDIS drivers for
@@ -393,7 +393,7 @@ config USB_G_MULTI_RNDIS
 	bool "RNDIS + CDC Serial + Storage configuration"
 	depends on USB_G_MULTI
 	select USB_F_RNDIS
-	default y
+	default n
 	help
 	  This option enables a configuration with RNDIS, CDC Serial and
 	  Mass Storage functions available in the Multifunction Composite
