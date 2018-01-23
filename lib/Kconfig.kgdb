@@ -23,7 +23,7 @@ config KGDB_SERIAL_CONSOLE
 	select CONSOLE_POLL
 	select MAGIC_SYSRQ
 	depends on TTY
-	default y
+	default n
 	help
 	  Share a serial console with kgdb. Sysrq-g must be used
 	  to break in initially.
