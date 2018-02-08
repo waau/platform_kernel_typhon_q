@@ -896,12 +896,12 @@ static int report_event(struct lge_touch_data *ts)
 			++ts->pdata->touch_count_num;
 
 			if (ts->pdata->lockscreen_stat && knock_mode) {
-				TOUCH_I(
+				TOUCH_D(DEBUG_BASE_INFO,
 						"%d finger pressed: <%d> x[xxxx] y[xxxx] z[xxx]\n",
 						ts->pdata->touch_count_num,
 						new_id);
 			} else {
-				TOUCH_I(
+				TOUCH_D(DEBUG_BASE_INFO,
 						"%d finger pressed: <%d> x[%4d] y[%4d] z[%3d]\n",
 						ts->pdata->touch_count_num,
 						new_id,
