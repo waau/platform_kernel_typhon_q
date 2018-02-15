@@ -1120,7 +1120,6 @@ static int mhi_uci_init(void)
 	struct uci_client *mhi_client = NULL;
 	s32 r = 0;
 
-#ifdef CONFIG_IPC_LOGGING
 	mhi_uci_ipc_log = ipc_log_context_create(MHI_UCI_IPC_LOG_PAGES,
 						"mhi-uci", 0);
 	if (mhi_uci_ipc_log == NULL) {
@@ -1139,7 +1138,6 @@ static int mhi_uci_init(void)
 				"Failed to init client attributes\n");
 		return -EIO;
 	}
-#endif
 	uci_ctxt.ctrl_chan_id = MHI_CLIENT_IP_CTRL_1_OUT;
 
 	uci_log(UCI_DBG_INFO, "Registering for MHI events.\n");
