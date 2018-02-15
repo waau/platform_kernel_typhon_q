@@ -621,8 +621,21 @@ module_param_named(
 	int, S_IRUSR | S_IWUSR
 );
 
-#define pr_smb(reason, fmt, ...)
-#define pr_smb_rt(reason, fmt, ...)
+#define pr_smb(reason, fmt, ...)				\
+	do {							\
+		if (smbchg_debug_mask & (reason))		\
+			pr_info(fmt, ##__VA_ARGS__);		\
+		else						\
+			pr_debug(fmt, ##__VA_ARGS__);		\
+	} while (0)
+
+#define pr_smb_rt(reason, fmt, ...)					\
+	do {								\
+		if (smbchg_debug_mask & (reason))			\
+			pr_info_ratelimited(fmt, ##__VA_ARGS__);	\
+		else							\
+			pr_debug_ratelimited(fmt, ##__VA_ARGS__);	\
+	} while (0)
 
 #ifdef CONFIG_LGE_PM_PARALLEL_CHARGING
 struct dual_current_table {
