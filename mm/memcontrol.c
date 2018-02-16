@@ -1295,24 +1295,41 @@ void mem_cgroup_update_lru_size(struct lruvec *lruvec, enum lru_list lru,
 	VM_BUG_ON((long)(*lru_size) < 0);
 }
 
-bool mem_cgroup_is_descendant(struct mem_cgroup *memcg, struct mem_cgroup *root)
+/*
+ * Checks whether given mem is same or in the root_mem_cgroup's
+ * hierarchy subtree
+ */
+bool __mem_cgroup_same_or_subtree(const struct mem_cgroup *root_memcg,
+				  struct mem_cgroup *memcg)
 {
-	if (root == memcg)
+	if (root_memcg == memcg)
 		return true;
-	if (!root->use_hierarchy)
+	if (!root_memcg->use_hierarchy)
 		return false;
-	return cgroup_is_descendant(memcg->css.cgroup, root->css.cgroup);
+	return cgroup_is_descendant(memcg->css.cgroup, root_memcg->css.cgroup);
 }
 
-bool task_in_mem_cgroup(struct task_struct *task, struct mem_cgroup *memcg)
+static bool mem_cgroup_same_or_subtree(const struct mem_cgroup *root_memcg,
+				       struct mem_cgroup *memcg)
 {
-	struct mem_cgroup *task_memcg;
+	bool ret;
+
+	rcu_read_lock();
+	ret = __mem_cgroup_same_or_subtree(root_memcg, memcg);
+	rcu_read_unlock();
+	return ret;
+}
+
+bool task_in_mem_cgroup(struct task_struct *task,
+			const struct mem_cgroup *memcg)
+{
+	struct mem_cgroup *curr;
 	struct task_struct *p;
 	bool ret;
 
 	p = find_lock_task_mm(task);
 	if (p) {
-		task_memcg = get_mem_cgroup_from_mm(p->mm);
+		curr = get_mem_cgroup_from_mm(p->mm);
 		task_unlock(p);
 	} else {
 		/*
@@ -1321,12 +1338,18 @@ bool task_in_mem_cgroup(struct task_struct *task, struct mem_cgroup *memcg)
 		 * killed to prevent needlessly killing additional tasks.
 		 */
 		rcu_read_lock();
-		task_memcg = mem_cgroup_from_task(task);
-		css_get(&task_memcg->css);
+		curr = mem_cgroup_from_task(task);
+		css_get(&curr->css);
 		rcu_read_unlock();
 	}
-	ret = mem_cgroup_is_descendant(task_memcg, memcg);
-	css_put(&task_memcg->css);
+	/*
+	 * We should check use_hierarchy of "memcg" not "curr". Because checking
+	 * use_hierarchy of "curr" here make this function true if hierarchy is
+	 * enabled in "curr" and "curr" is a child of "memcg" in *cgroup*
+	 * hierarchy(even if use_hierarchy is disabled in "memcg").
+	 */
+	ret = mem_cgroup_same_or_subtree(memcg, curr);
+	css_put(&curr->css);
 	return ret;
 }
 
@@ -1411,8 +1434,8 @@ static bool mem_cgroup_under_move(struct mem_cgroup *memcg)
 	if (!from)
 		goto unlock;
 
-	ret = mem_cgroup_is_descendant(from, memcg) ||
-		mem_cgroup_is_descendant(to, memcg);
+	ret = mem_cgroup_same_or_subtree(memcg, from)
+		|| mem_cgroup_same_or_subtree(memcg, to);
 unlock:
 	spin_unlock(&mc.lock);
 	return ret;
@@ -1844,8 +1867,12 @@ static int memcg_oom_wake_function(wait_queue_t *wait,
 	oom_wait_info = container_of(wait, struct oom_wait_info, wait);
 	oom_wait_memcg = oom_wait_info->memcg;
 
-	if (!mem_cgroup_is_descendant(wake_memcg, oom_wait_memcg) &&
-	    !mem_cgroup_is_descendant(oom_wait_memcg, wake_memcg))
+	/*
+	 * Both of oom_wait_info->memcg and wake_memcg are stable under us.
+	 * Then we can use css_is_ancestor without taking care of RCU.
+	 */
+	if (!mem_cgroup_same_or_subtree(oom_wait_memcg, wake_memcg)
+		&& !mem_cgroup_same_or_subtree(wake_memcg, oom_wait_memcg))
 		return 0;
 	return autoremove_wake_function(wait, mode, sync, arg);
 }
@@ -2162,7 +2189,7 @@ static void drain_all_stock(struct mem_cgroup *root_memcg)
 		memcg = stock->cached;
 		if (!memcg || !stock->nr_pages)
 			continue;
-		if (!mem_cgroup_is_descendant(memcg, root_memcg))
+		if (!mem_cgroup_same_or_subtree(root_memcg, memcg))
 			continue;
 		if (!test_and_set_bit(FLUSHING_CACHED_CHARGE, &stock->flags)) {
 			if (cpu == curcpu)
