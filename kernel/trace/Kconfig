@@ -71,7 +71,7 @@ config RING_BUFFER
 config FTRACE_NMI_ENTER
        bool
        depends on HAVE_FTRACE_NMI_ENTER
-       default y
+       default n
 
 config EVENT_TRACING
 	select CONTEXT_SWITCH_TRACER
@@ -164,13 +164,13 @@ config TRACING_SUPPORT
 	# irqflags tracing for your architecture.
 	depends on TRACE_IRQFLAGS_SUPPORT || PPC32
 	depends on STACKTRACE_SUPPORT
-	default y
+	default n
 
 if TRACING_SUPPORT
 
 menuconfig FTRACE
 	bool "Tracers"
-	default y if DEBUG_KERNEL
+	default n if DEBUG_KERNEL
 	help
 	  Enable the kernel tracing infrastructure.
 
@@ -447,7 +447,7 @@ config KPROBE_EVENT
 	bool "Enable kprobes-based dynamic events"
 	select TRACING
 	select PROBE_EVENTS
-	default y
+	default n
 	help
 	  This allows the user to add tracing events (similar to tracepoints)
 	  on the fly via the ftrace interface. See
