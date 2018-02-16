@@ -538,6 +538,9 @@ config VEXPRESS_SYSCFG
 config UID_SYS_STATS
 	tristate "Per-UID statistics"
 	depends on PROFILING
+	select TASKSTATS
+	select TASK_XACCT
+	select TASK_IO_ACCOUNTING
 	help
 	  Per UID based io statistics exported to /proc/uid_io
 
