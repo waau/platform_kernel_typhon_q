@@ -1494,10 +1494,7 @@ int __init msm_smem_init(void)
 		msm_smem_debug_mask = 0;
 	}
 #endif
-<<<<<<< HEAD
 
-=======
->>>>>>> 06c93f95d2bf... soc: qcom: stop spam when IPC_LOGGING is disabled
 	rc = platform_driver_register(&msm_smem_driver);
 	if (rc) {
 		LOG_ERR("%s: msm_smem_driver register failed %d\n",
