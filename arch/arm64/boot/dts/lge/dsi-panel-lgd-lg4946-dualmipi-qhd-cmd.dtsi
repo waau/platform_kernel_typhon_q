@@ -300,12 +300,12 @@
 	qcom,pmi8994@3 {
 		labibb: qpnp-labibb-regulator {
 			ibb_regulator: qcom,ibb@dc00 {
-				qcom,qpnp-ibb-init-voltage = <5500000>;
-				qcom,qpnp-ibb-init-lcd-voltage = <5500000>;
+				qcom,qpnp-ibb-init-voltage = <5300000>;
+				qcom,qpnp-ibb-init-lcd-voltage = <5300000>;
 			};
 			lab_regulator: qcom,lab@de00 {
-				qcom,qpnp-lab-init-voltage = <5400000>;
-				qcom,qpnp-lab-init-lcd-voltage = <5400000>;
+				qcom,qpnp-lab-init-voltage = <5200000>;
+				qcom,qpnp-lab-init-lcd-voltage = <5200000>;
 			};
 		};
 	};
