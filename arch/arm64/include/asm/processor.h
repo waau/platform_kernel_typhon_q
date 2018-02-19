@@ -133,11 +133,7 @@ extern void release_thread(struct task_struct *);
 
 unsigned long get_wchan(struct task_struct *p);
 
-static inline void cpu_relax(void)
-{
-	asm volatile("yield" ::: "memory");
-}
-
+#define cpu_relax()			barrier()
 #define cpu_relax_lowlatency()                cpu_relax()
 
 #define cpu_read_relax()		wfe()
