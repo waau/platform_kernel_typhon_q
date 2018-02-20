@@ -1222,7 +1222,7 @@
 
 		/* PM QoS */
 		qcom,pm-qos-cpu-groups = <0x03 0x0C>;
-		qcom,pm-qos-cpu-group-latency-us = <70 70>;
+		qcom,pm-qos-cpu-group-latency-us = <40 40>;
 		qcom,pm-qos-default-cpu = <0>;
 
 		status = "disabled";
@@ -2745,7 +2745,7 @@
 		compatible = "qcom,msm-thermal";
 		reg = <0x70000 0x1000>;
 		qcom,sensor-id = <11>;
-		qcom,poll-ms = <100>;
+		qcom,poll-ms = <500>;
 		qcom,limit-temp = <60>;
 		qcom,temp-hysteresis = <10>;
 		qcom,therm-reset-temp = <115>;
@@ -2835,7 +2835,7 @@
 		reg = <0x70000 0x1000>;
 		qcom,low-hyst-temp = <10>;
 		qcom,high-hyst-temp = <5>;
-		qcom,polling-interval = <150>;
+		qcom,polling-interval = <500>;
 
 		ea0: ea0 {
 			sensor = <&sensor_information4>;
@@ -2896,14 +2896,6 @@
 			qcom,dump-node = <&L1_TLB_101>;
 			qcom,dump-id = <0x23>;
 		};
-	};
-
-	qcom_tzlog: tz-log@66bf720 {
-		compatible = "qcom,tz-log";
-		reg = <0x066bf720 0x2000>;
-		qcom,hyplog-enabled;
-		hyplog-address-offset = <0x410>; /* 0x066BFB30 */
-		hyplog-size-offset = <0x414>;    /* 0x066BFB34 */
 	};
 
 	sound-9335 {
@@ -3631,30 +3623,6 @@
                          qcom,glinkpkt-dev-name = "glink_pkt_loopback";
                  };
          };
-
-	qcom,cache_erp64@6500000 {
-		compatible = "qcom,kryo_cache_erp64";
-		reg = <0x6500000 0x4000>;
-		/*
-		 * PPI 0  for L0/L1
-		 * SPI 1  for Cluster 1 L2 Info
-		 * SPI 9  for Cluster 2 L2 Info
-		 * SPI 2  for Cluster 1 L2 Error
-		 * SPI 10 for Cluster 2 L2 Error
-		 * SPI 17 for L3 error
-		 */
-		interrupts = <1 0 0>, <0 1 0>, <0 9 0>, <0 2 0>, <0 10 0>,
-			     <0 17 0>;
-		interrupt-names = "l1_irq", "l2_irq_info_0", "l2_irq_info_1",
-				  "l2_irq_err_0", "l2_irq_err_1", "l3_irq";
-	};
-
-	qcom,m4m_erp64@9A40000 {
-		compatible = "qcom,m4m_erp";
-		reg = <0x9A40000 0x40000>;
-		interrupts = <0 22 0>;
-		interrupt-names = "m4m_irq";
-	};
 
 	lmh: qcom,lmh {
 		compatible = "qcom,lmh_v1";
