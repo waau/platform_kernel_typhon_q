@@ -2453,7 +2453,7 @@
 			 <&clock_gcc clk_qcrypto_ce1_clk>,
 			 <&clock_gcc clk_gcc_ce1_ahb_m_clk>,
 			 <&clock_gcc clk_gcc_ce1_axi_m_clk>;
-		qcom,ce-opp-freq = <171430000>;
+		qcom,ce-opp-freq = <200000000>;
 		qcom,use-sw-aes-cbc-ecb-ctr-algo;
 		qcom,use-sw-aes-xts-algo;
 		qcom,use-sw-aes-ccm-algo;
@@ -2485,7 +2485,7 @@
 			 <&clock_gcc clk_qcedev_ce1_clk>,
 			 <&clock_gcc clk_gcc_ce1_ahb_m_clk>,
 			 <&clock_gcc clk_gcc_ce1_axi_m_clk>;
-		qcom,ce-opp-freq = <171430000>;
+		qcom,ce-opp-freq = <200000000>;
 	};
 
 	qcom_seecom: qseecom@86600000 {
