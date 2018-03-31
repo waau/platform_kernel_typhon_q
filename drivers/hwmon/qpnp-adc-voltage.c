@@ -108,7 +108,7 @@
 #define QPNP_VADC_CONV_TIMEOUT_ERR				2
 #define QPNP_VADC_CONV_TIME_MIN					1000
 #define QPNP_VADC_CONV_TIME_MAX					1100
-#define QPNP_ADC_COMPLETION_TIMEOUT				1000
+#define QPNP_ADC_COMPLETION_TIMEOUT				HZ
 #define QPNP_VADC_ERR_COUNT					20
 #define QPNP_OP_MODE_SHIFT					3
 
@@ -374,7 +374,6 @@ static int32_t qpnp_vadc_status_debug(struct qpnp_vadc_chip *vadc)
 
 	return 0;
 }
-
 static int32_t qpnp_vadc_configure(struct qpnp_vadc_chip *vadc,
 			struct qpnp_adc_amux_properties *chan_prop)
 {
@@ -1673,7 +1672,7 @@ recalibrate:
 	} else {
 		rc = wait_for_completion_timeout(
 					&vadc->adc->adc_rslt_completion,
-					msecs_to_jiffies(QPNP_ADC_COMPLETION_TIMEOUT));
+					QPNP_ADC_COMPLETION_TIMEOUT);
 		if (!rc) {
 			rc = qpnp_vadc_read_reg(vadc, QPNP_VADC_STATUS1,
 							&status1, 1);
